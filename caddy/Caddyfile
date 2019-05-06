@@ -1,0 +1,45 @@
+https://ethnet.zaidan.io {
+    tls {
+        dns cloudflare
+    }
+
+    proxy /mainnet mainnet-1:8545 mainnet-2:8545 mainnet-3:8545 {
+        without /mainnet
+
+        policy round_robin
+
+        health_check /
+        health_check_port 3000
+        health_check_timeout 10s
+    }
+
+    proxy /ws/mainnet mainnet-1:8546 mainnet-2:8546 mainnet-3:8546 {
+        websocket
+
+        policy round_robin
+
+        health_check /
+        health_check_port 3000
+        health_check_timeout 10s
+    }
+
+    proxy /ropsten ropsten-1:8545 ropsten-2:8545 ropsten-3:8545 {
+        without /ropsten
+
+        policy round_robin
+
+        health_check /
+        health_check_port 3000
+        health_check_timeout 10s
+    }
+
+    proxy /ws/ropsten ropsten-1:8546 ropsten-2:8546 ropsten-3:8546 {
+        websocket
+        
+        policy round_robin
+
+        health_check /
+        health_check_port 3000
+        health_check_timeout 10s
+    }
+}

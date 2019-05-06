@@ -1,0 +1,22 @@
+{
+  "name": "devnet-cluster",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Henry Harder",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:health_check": "./health-checker/build.sh ${npm_package_config_image_host} geth-healthcheck ${npm_package_version}",
+    "publish:health_check": "./health-checker/build.sh ${npm_package_config_image_host} geth-healthcheck ${npm_package_version} true",
+    "start:health_check": "node ./health-checker/main.js"
+  },
+  "config": {
+    "image_host": "gcr.io/zaidan-eth-net"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
+  }
+}

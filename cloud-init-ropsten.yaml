@@ -1,0 +1,63 @@
+#cloud-config
+
+users:
+- name: geth
+  uid: 2323
+
+write_files:
+- path: /etc/systemd/system/ethereum.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized Ethereum Go Client
+
+    [Service]
+    ExecStart=/usr/bin/docker \
+      run \
+      --rm \
+      --network=main \
+      --user=2323 \
+      --name=geth \
+      --publish=8545:8545 \
+      --publish=8546:8546 \
+      --publish=30303:30303 \
+      --volume=/home/geth:/home/geth \
+      ethereum/client-go \
+      --testnet \
+      --syncmode "fast" \
+      --cache 4096 \
+      --maxpeers 50 \
+      --datadir /home/geth \
+      --rpc \
+      --rpcaddr "0.0.0.0" \
+      --rpcvhosts "*" \
+      --rpccorsdomain "*" \
+      --ws \
+      --wsaddr "0.0.0.0" \
+      --wsport "8546" \
+      --wsorigins "*"
+    ExecStop=/usr/bin/docker stop geth
+- path: /etc/systemd/system/healthcheck.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized Geth Health Checker
+
+    [Service]
+    Environment=ROPSTEN=true
+    ExecStart=/usr/bin/docker \
+      run \
+      --rm \
+      --network=main \
+      --publish=3000:3000 \
+      --name=healthcheck \
+      gcr.io/zaidan-eth-net/geth-healthcheck:latest
+    ExecStop=/usr/bin/docker stop healthcheck
+
+runcmd:
+- docker network create main
+- systemctl daemon-reload
+- systemctl start ethereum.service
+- systemctl start healthcheck.service

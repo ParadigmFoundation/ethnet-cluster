@@ -1,0 +1,14 @@
+*.log
+*.err
+
+*.Dockerfile
+
+.DS_Store
+.gitignore
+.env
+.vscode
+.git
+
+cloud-init.yaml
+
+node_modules
