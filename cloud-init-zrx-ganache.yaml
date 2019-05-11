@@ -1,0 +1,22 @@
+#cloud-config
+
+write_files:
+- path: /etc/systemd/system/ganache.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized 0x Ganache Snapshot
+
+    [Service]
+    ExecStart=/usr/bin/docker run \
+      --rm \
+      --name=0x-snapshot \
+      --publish=8545:8545 \
+      --env=DOCKER=true \
+      gcr.io/zaidan-eth-net/0x-snapshot:0.1.0
+    ExecStop=/usr/bin/docker stop 0x-snapshot
+
+runcmd:
+- systemctl daemon-reload
+- systemctl start ganache.service
