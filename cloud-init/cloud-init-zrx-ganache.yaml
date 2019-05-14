@@ -14,7 +14,7 @@ write_files:
       --name=0x-snapshot \
       --publish=8545:8545 \
       --env=DOCKER=true \
-      gcr.io/zaidan-eth-net/0x-snapshot:0.1.0
+      gcr.io/zaidan-eth-net/0x-snapshot:0.2.1
     ExecStop=/usr/bin/docker stop 0x-snapshot
 
 runcmd:
