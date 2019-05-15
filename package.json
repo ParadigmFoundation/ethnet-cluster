@@ -1,6 +1,6 @@
 {
-  "name": "devnet-cluster",
-  "version": "0.0.1",
+  "name": "ethnet-cluster",
+  "version": "1.0.0",
   "main": "index.js",
   "author": "Henry Harder",
   "license": "MIT",
