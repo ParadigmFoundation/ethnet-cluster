@@ -15,7 +15,7 @@ Currently available endpoints (TLS required for all endpoints):
 - __HTTPS:__  `https://ethnet.zaidan.io/ropsten`
 - __WSS:__  `wss://ethnet.zaidan.io/ws/ropsten`  
 
-### Kovan (ID 3)
+### Kovan (ID 42)
 
 - __HTTPS:__  `https://ethnet.zaidan.io/kovan`
 - __WSS:__  `wss://ethnet.zaidan.io/ws/kovan`   
