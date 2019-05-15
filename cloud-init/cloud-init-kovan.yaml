@@ -1,0 +1,54 @@
+#cloud-config
+
+write_files:
+- path: /etc/systemd/system/ethereum.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized Ethereum Go Client
+
+    [Service]
+    ExecStart=/usr/bin/docker \
+      run \
+      --rm \
+      --network=main \
+      --name=parity \
+      --publish=8545:8545 \
+      --publish=8546:8546 \
+      --publish=30303:30303 \
+      parity/parity:beta \
+      --chain=kovan \
+      --interface=all \
+      --min-peers=15 \
+      --max-peers=30 \
+      --allow-ips=all \
+      --jsonrpc-interface=all \
+      --jsonrpc-hosts=all \
+      --ws-interface=all \
+      --ws-origins=all \
+      --ws-hosts=all
+    ExecStop=/usr/bin/docker stop parity
+- path: /etc/systemd/system/healthcheck.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized Geth Health Checker
+
+    [Service]
+    Environment=KOVAN=true
+    ExecStart=/usr/bin/docker \
+      run \
+      --rm \
+      --network=main \
+      --publish=3000:3000 \
+      --name=healthcheck \
+      gcr.io/zaidan-eth-net/geth-healthcheck:latest
+    ExecStop=/usr/bin/docker stop healthcheck
+
+runcmd:
+- docker network create main
+- systemctl daemon-reload
+- systemctl start ethereum.service
+- systemctl start healthcheck.service

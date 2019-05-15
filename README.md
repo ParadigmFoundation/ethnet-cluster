@@ -3,7 +3,7 @@ Service (and Docker) definitions (via `cloud-init`) for Geth clusters on GCP. Al
 
 ## Access
 
-Currently availible endpoints (TLS required):
+Currently available endpoints (TLS required for all endpoints):
 
 ### Mainnet (ID 1)
 
@@ -13,7 +13,12 @@ Currently availible endpoints (TLS required):
 ### Ropsten (ID 3)
 
 - __HTTPS:__  `https://ethnet.zaidan.io/ropsten`
-- __WSS:__  `wss://ethnet.zaidan.io/ws/ropsten`   
+- __WSS:__  `wss://ethnet.zaidan.io/ws/ropsten`  
+
+### Kovan (ID 3)
+
+- __HTTPS:__  `https://ethnet.zaidan.io/kovan`
+- __WSS:__  `wss://ethnet.zaidan.io/ws/kovan`   
 
 ## Development
 

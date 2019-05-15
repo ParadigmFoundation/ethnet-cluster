@@ -4,6 +4,7 @@ These `.yaml` files define `systemd` services for Ethereum clients running on co
 
 - `cloud-init-mainnet.yaml`: Mainnet Geth full (non-archival) node
 - `cloud-init-ropsten.yaml`: Ropsten Geth full (non-archival) node
+- `cloud-init-kovan.yaml`: Kovan Parity full (non-archival) node
 - `cloud-init-zrx-ganache.yaml`: Ganache RPC server with 0x (V2) snapshot (see [here](https://0x.org/wiki#Ganache-Setup-Guide))
 
 They may be passed in as `user-data` during GCP VM initialization, or can be provided as metadata during initialization with the Google Cloud SDK. Authentication required. 

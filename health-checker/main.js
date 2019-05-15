@@ -7,10 +7,17 @@ const healthCheck = express();
 
 const ETHERSCAN_URL_MAINNET = "https://api.etherscan.io/api?module=proxy&action=eth_blockNumber";
 const ETHERSCAN_URL_ROPSTEN = "https://api-ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber";
+const ETHERSCAN_URL_KOVAN = "https://api-kovan.etherscan.io/api?module=proxy&action=eth_blockNumber"
 
-const REQ_URL = process.env.ROPSTEN === "true" ?
-    ETHERSCAN_URL_ROPSTEN :
-    ETHERSCAN_URL_MAINNET;
+let REQ_URL;
+
+if (process.env.ROPSTEN === "true") {
+    REQ_URL = ETHERSCAN_URL_ROPSTEN;
+} else if (process.env.KOVAN === "true") {
+    REQ_URL = ETHERSCAN_URL_KOVAN;
+} else {
+    REQ_URL = ETHERSCAN_URL_MAINNET;
+}
 
 healthCheck.get('/*', (req, res) => {
     request.get(REQ_URL, { timeout: 2000 }, (err, _, body) => {
