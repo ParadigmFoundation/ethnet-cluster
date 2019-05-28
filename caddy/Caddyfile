@@ -80,4 +80,18 @@ https://ethnet.zaidan.io {
         health_check_port 3000
         health_check_timeout 10s
     }
+
+    ###################
+    # KOSU-GETH (PoA) #
+    ###################
+
+    proxy /kosu kosu-1:8545 {
+        without /kosu
+    }
+
+    proxy /ws/kosu kosu-1:8546 {
+        websocket
+
+        policy round_robin
+    }
 }

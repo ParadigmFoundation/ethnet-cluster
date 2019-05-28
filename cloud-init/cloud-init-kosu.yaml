@@ -1,9 +1,5 @@
 #cloud-config
 
-users:
-- name: geth
-  uid: 2323
-
 write_files:
 - path: /etc/systemd/system/ethereum.service
   permissions: 0644
@@ -16,12 +12,10 @@ write_files:
     ExecStart=/usr/bin/docker \
       run \
       --rm \
-      --user=2323 \
       --name=geth \
       --publish=8545:8545 \
       --publish=8546:8546 \
-      --volume=/home/geth:/home/geth \
-      gcr.io/kosu-io/kosu-geth:latest
+      gcr.io/kosu-io/kosu-geth:0.1.1
     ExecStop=/usr/bin/docker stop geth
 
 runcmd:
