@@ -1,0 +1,29 @@
+#cloud-config
+
+users:
+- name: geth
+  uid: 2323
+
+write_files:
+- path: /etc/systemd/system/ethereum.service
+  permissions: 0644
+  owner: root
+  content: |
+    [Unit]
+    Description=Dockerized Ethereum Go Client
+
+    [Service]
+    ExecStart=/usr/bin/docker \
+      run \
+      --rm \
+      --user=2323 \
+      --name=geth \
+      --publish=8545:8545 \
+      --publish=8546:8546 \
+      --volume=/home/geth:/home/geth \
+      gcr.io/kosu-io/kosu-geth:latest
+    ExecStop=/usr/bin/docker stop geth
+
+runcmd:
+- systemctl daemon-reload
+- systemctl start ethereum.service
