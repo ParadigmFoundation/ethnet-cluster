@@ -15,7 +15,7 @@ write_files:
       --name=geth \
       --publish=8545:8545 \
       --publish=8546:8546 \
-      gcr.io/kosu-io/kosu-geth:0.1.1
+      gcr.io/kosu-io/kosu-geth:0.1.0-zaiden
     ExecStop=/usr/bin/docker stop geth
 
 runcmd:
